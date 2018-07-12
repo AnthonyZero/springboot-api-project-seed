@@ -1,7 +1,10 @@
 package com.anthonyzero.seed.common.core;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.anthonyzero.seed.modules.user.dto.UserExtend;
 
 
 /**
@@ -13,8 +16,8 @@ public abstract class AbstractController {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	/*protected SmUserExtend getUser() {
-		return (SmUserExtend) SecurityUtils.getSubject().getPrincipal();
+	protected UserExtend getUser() {
+		return (UserExtend) SecurityUtils.getSubject().getPrincipal();
 	}
 
 	protected Long getUserId() {
@@ -27,5 +30,5 @@ public abstract class AbstractController {
 
 	protected Long getAreaId() {
 		return getUser().getAreaId();
-	}*/
+	}
 }
