@@ -9,5 +9,11 @@ public class SysConstant {
     /**
      * 云存储配置KEY
      */
-    public final static String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
+    public static final String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
+    
+    /**
+	 * 状态
+	 */
+	public static final int STATE_VALID = 1; // 有效
+	public static final int STATE_INVALID = 0; // 无效
 }

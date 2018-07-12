@@ -4,13 +4,13 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:
-                url: jdbc:mysql://127.0.0.1:3306/fswsdb?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true
-                username: mxdb
-                password: mxmallDB201709
+                url: jdbc:mysql://127.0.0.1:3306/seed?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true
+                username: root
+                password: 123456
             second:
-                url: jdbc:mysql://127.0.0.1:3306/fswsdb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
-                username: mxdb
-                password: mxmallDB201709
+                url: jdbc:mysql://127.0.0.1:3306/seed?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+                username: root
+                password: 123456
             initial-size: 10
             max-active: 100
             min-idle: 10
