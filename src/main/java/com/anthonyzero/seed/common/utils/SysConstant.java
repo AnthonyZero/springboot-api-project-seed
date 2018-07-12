@@ -12,6 +12,10 @@ public class SysConstant {
     public static final String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
     
     /**
+     * token过期时间设定 12小时
+     */
+ 	public static final int EXPIRE = 3600 * 12;
+    /**
 	 * 状态
 	 */
 	public static final int STATE_VALID = 1; // 有效
