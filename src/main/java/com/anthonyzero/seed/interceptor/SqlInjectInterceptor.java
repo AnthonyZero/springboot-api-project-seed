@@ -25,8 +25,7 @@ import com.anthonyzero.seed.common.core.Result;
 
 /**
  * 防SQL注入 拦截器
- * 
- * @author dumingchun
+ * @author pingjin create 2018年7月12日
  *
  */
 @Component
