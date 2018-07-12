@@ -41,9 +41,16 @@ public class DynamicDataSourceConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
+    /**
+     *  @Qualifier 根据名称进行注入，通常是在具有相同的多个类型的实例的一个注入（例如有多个DataSource类型的实例）
+     * @param firstDataSource
+     * @param secondDataSource
+     * @return
+     */
     @Bean(name="dynamicDataSource")
     @Primary
-    public DynamicDataSource dataSource(DataSource firstDataSource, DataSource secondDataSource) {
+    public DynamicDataSource dataSource(@Qualifier("firstDataSource") DataSource firstDataSource, 
+    		@Qualifier("secondDataSource") DataSource secondDataSource) {
         Map<String, DataSource> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceNames.FIRST, firstDataSource);
         targetDataSources.put(DataSourceNames.SECOND, secondDataSource);
@@ -52,7 +59,7 @@ public class DynamicDataSourceConfig {
     
     
     @Bean(name = "transactionManager")
-    public DataSourceTransactionManager dataSourceTransactionManager(@Qualifier("dynamicDataSource")DynamicDataSource dataSource) {
+    public DataSourceTransactionManager dataSourceTransactionManager(DynamicDataSource dataSource) {
         DataSourceTransactionManager txManager = new DataSourceTransactionManager();
         txManager.setDataSource(dataSource);
         return txManager;
@@ -63,9 +70,10 @@ public class DynamicDataSourceConfig {
      * @throws Exception 
      */
     @Bean(name="sessionFactory")
-    public SqlSessionFactoryBean sessionFactory(@Qualifier("dynamicDataSource")DynamicDataSource dataSource) throws Exception{
+    public SqlSessionFactoryBean sessionFactory(@Qualifier("firstDataSource") DataSource firstDataSource,
+    		@Qualifier("secondDataSource") DataSource secondDataSource) throws Exception{
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource);
+        sessionFactoryBean.setDataSource(this.dataSource(firstDataSource, secondDataSource));
         sessionFactoryBean.setTypeAliasesPackage("com.anthonyzero.seed.modules.*.domain");
 		
         sessionFactoryBean.setConfigLocation(new ClassPathResource("/mybatis.xml"));

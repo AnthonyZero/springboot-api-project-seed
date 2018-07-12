@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
+import com.anthonyzero.seed.datasources.DataSourceContextHolder;
 import com.anthonyzero.seed.datasources.DataSourceNames;
-import com.anthonyzero.seed.datasources.DynamicDataSource;
 import com.anthonyzero.seed.datasources.annotation.DataSource;
 
 
@@ -39,17 +39,17 @@ public class DataSourceAspect implements Ordered {
 
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
-            DynamicDataSource.setDataSource(DataSourceNames.FIRST);
+            DataSourceContextHolder.setDataSource(DataSourceNames.FIRST);
             logger.debug("set datasource is " + DataSourceNames.FIRST);
         }else {
-            DynamicDataSource.setDataSource(ds.name());
+        	DataSourceContextHolder.setDataSource(ds.name());
             logger.debug("set datasource is " + ds.name());
         }
 
         try {
             return point.proceed();
         } finally {
-            DynamicDataSource.clearDataSource();
+        	DataSourceContextHolder.clearDataSource();
             logger.debug("clean datasource");
         }
     }
