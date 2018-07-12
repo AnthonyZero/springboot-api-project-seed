@@ -24,3 +24,4 @@ spring:
     # 指定静态资源的路径
     resources:
         static-locations: classpath:/static/,classpath:/views/
+swagger.enable: true

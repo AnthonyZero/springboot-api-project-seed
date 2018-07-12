@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.anthonyzero.seed.interceptor.SqlInjectInterceptor;
@@ -24,4 +25,13 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 		logger.debug("--> 添加SQL拦截器");
 		registry.addInterceptor(sqlInjectInterceptor).addPathPatterns("/**");
 	}
+	
+	// 添加swagger2资源
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 }
