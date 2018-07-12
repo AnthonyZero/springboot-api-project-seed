@@ -60,7 +60,7 @@
 		</javaClientGenerator>
 		
 		<!-- 要生成哪些表-->
-		<table tableName="sm_user" mapperName="SmUserMapper" domainObjectName="SmUser">
+		<table tableName="sm_file" mapperName="SmFileMapper" domainObjectName="SmFile">
 			<!-- <generatedKey  identity="false" column="user_id" sqlStatement="SELECT LAST_INSERT_ID()"/> -->
 		</table>
 	</context>
