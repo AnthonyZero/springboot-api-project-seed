@@ -242,7 +242,7 @@ public class FileController {
 	 * @return
 	 */
 	@PostMapping("/uploadFile")
-	@ApiOperation(value = "文件上传", notes = "上传图片")
+	@ApiOperation(value = "文件上传")
 	public Result<FileInfo> uploadFile(MultipartFile file) {
 		if (file == null) {
 			return Result.error("文件为空,上传失败");
@@ -336,7 +336,7 @@ public class FileController {
 					} catch (Exception e) {
 					}
 
-					FileInfo fileInfo = smfileService.saveFile(fileName, relaPath, upFile);
+					FileInfo fileInfo = smfileService.saveFile(file.getOriginalFilename(), relaPath, upFile);
 
 					// 上传 成功的路径
 					succFiles.add(fileInfo);

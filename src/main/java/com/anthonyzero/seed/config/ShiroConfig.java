@@ -72,6 +72,8 @@ public class ShiroConfig {
 		filterMap.put("/plugins/**", "anon");
 		filterMap.put("/swagger/**", "anon");
 		filterMap.put("/favicon.ico", "anon");
+		filterMap.put("/image/**", "anon"); //图片预览
+		filterMap.put("/dlfile/**", "anon");
 		filterMap.put("/", "anon");
 		
 		filterMap.put("/**", "oauth2");
