@@ -15,18 +15,18 @@ springboot-api-project-seed 是一个基于Spring Boot&MyBatis的种子项目，
 
 ## 开始&安装
   ```
-  > git clone git@github.com:AnthonyZero/springboot-api-project-seed.git`
+  > git clone git@github.com:AnthonyZero/springboot-api-project-seed.git
 
-  > execute database sql`
+  > execute database sql /dbscript/seed.sql
 
-  > mvn clean install -DskipTests`
+  > mvn clean install -DskipTests
 
-  > import the project, update mysql connection properties`
+  > import the project, update mysql connection properties
 
-  > run Application.java`
+  > run Application.java
   ```
-* 访问swagger-ui：http://localhost:8860/seed/swagger-ui.html
-* 用帐号test密码123456 进行登录接口测试 获取访问令牌token 后续测试文件相关请带上
+访问swagger-ui：http://localhost:8860/seed/swagger-ui.html
+用帐号test密码123456 进行登录接口测试 获取访问令牌token 后续测试文件相关API
 
 ## 建议&提醒
 - 因为项目中使用了Lombok包，它是在编译的时期，自动生成get set方法，并不影响运行，如果觉得提示错误难受，请自行下载lombok包插件，[lombok官网]( https://www.projectlombok.org/)
