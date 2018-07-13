@@ -14,16 +14,17 @@ springboot-api-project-seed 是一个基于Spring Boot&MyBatis的种子项目，
 - 简单文件上传下载 图片预览API示例
 
 ## 开始&安装
-`git clone git@github.com:AnthonyZero/springboot-api-project-seed.git`
+  ```
+  > git clone git@github.com:AnthonyZero/springboot-api-project-seed.git`
 
-`execute database sql`
+  > execute database sql`
 
-`mvn clean install -DskipTests`
+  > mvn clean install -DskipTests`
 
-`import the project, update mysql connection properties`
+  > import the project, update mysql connection properties`
 
-`run Application.java`
-
+  > run Application.java`
+  ```
 * 访问swagger-ui：http://localhost:8860/seed/swagger-ui.html
 * 用帐号test密码123456 进行登录接口测试 获取访问令牌token 后续测试文件相关请带上
 
