@@ -3,10 +3,12 @@ package com.anthonyzero.seed.modules.sys.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.anthonyzero.seed.modules.sys.service.ShiroService;
+import com.anthonyzero.seed.modules.user.domain.SmUser;
 import com.anthonyzero.seed.modules.user.domain.SmUserToken;
 import com.anthonyzero.seed.modules.user.domain.SmUserTokenExample;
 import com.anthonyzero.seed.modules.user.dto.UserExtend;
@@ -36,8 +38,11 @@ public class ShiroServiceImpl implements ShiroService{
 	}
 
 	@Override
-	public UserExtend queryUser(Long userId) {
+	public UserExtend queryUser(Long userId) throws Exception{
 		//TODO 这只是简单返回用户信息
-		return (UserExtend) smUserMapper.selectByPrimaryKey(userId);
+		SmUser smUser = smUserMapper.selectByPrimaryKey(userId);
+		UserExtend userExtend = new UserExtend();
+		BeanUtils.copyProperties(userExtend, smUser);
+		return userExtend;
 	}
 }

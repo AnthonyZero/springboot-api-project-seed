@@ -29,5 +29,5 @@ public interface ShiroService {
 	 * 
 	 * @param userId
 	 */
-	UserExtend queryUser(Long userId);
+	UserExtend queryUser(Long userId) throws Exception;
 }

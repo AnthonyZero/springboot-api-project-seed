@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,12 +37,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.anthonyzero.seed.common.core.Result;
 import com.anthonyzero.seed.common.utils.DateUtils;
+import com.anthonyzero.seed.common.utils.TimeUtil;
 import com.anthonyzero.seed.modules.sys.dto.FileInfo;
 import com.anthonyzero.seed.modules.sys.service.SmFileService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 /**
@@ -118,6 +121,7 @@ public class FileController {
 	 * @param response
 	 */
 	@SuppressWarnings("rawtypes")
+	@ApiIgnore
 	@RequestMapping("/downloadImage")
 	public Result downloadImage(Long fileId, HttpServletRequest request, HttpServletResponse response) {
 		return downloadFile(fileId, null, null, request, response);
@@ -132,8 +136,7 @@ public class FileController {
 	 */
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/downloadFile")
-	@ApiOperation(value = "根据文件Id下载文件")
-	@ApiImplicitParam(name = "fileId", value = "文件Id", required = true, dataType = "long")
+	@ApiIgnore
 	public Result downloadFileById(Long fileId, HttpServletRequest request, HttpServletResponse response) {
 		return downloadFile(fileId, null, null, request, response);
 	}
@@ -147,10 +150,14 @@ public class FileController {
 	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/download")
+	@ApiIgnore
 	public Result downloadFile(Long fileId, String fileName, Integer down, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (fileId != null && fileId > 0) {
 			fileName = smfileService.getFilePath(fileId);
+		}
+		if (!StringUtils.hasText(fileName)) {
+			return Result.error("file not find.");
 		}
 		File file = new File(FILE_PATH, fileName);
 		if (!file.exists() || file.isDirectory() || file.isHidden()) {
@@ -227,6 +234,49 @@ public class FileController {
 
 		return "";
 	}
+	
+	/**
+	 * 文件上传
+	 * @param category
+	 * @param file
+	 * @return
+	 */
+	@PostMapping("/uploadFile")
+	@ApiOperation(value = "文件上传", notes = "上传图片")
+	public Result<FileInfo> uploadFile(MultipartFile file) {
+		if (file == null) {
+			return Result.error("文件为空,上传失败");
+		} 
+		logger.debug("文件名:" + file.getOriginalFilename() + " 文件内容类型:" + file.getContentType() + " 文件大小:" + file.getSize() + "Bytes");
+		String fileName = file.getOriginalFilename();
+		
+		int pos = fileName.lastIndexOf(".");
+		if (pos < 0) {
+			return Result.error("请检查文件格式");
+		}
+		//文件后缀
+		String suffix = fileName.substring(pos + 1);
+		fileName = UUID.randomUUID().toString() + "." + suffix;
+		//存储路径
+		String fileUrl =  TimeUtil.getTimeStr(new Date(), "yyyyMMdd") + "/" + fileName;
+		String uploadDir = FILE_PATH + "/" + TimeUtil.getTimeStr(new Date(), "yyyyMMdd");
+		//文件上传目录
+		File dir = new File(uploadDir);
+		dir.setWritable(true, false);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		//服务器保存文件对象
+		File serverFile = new File(dir, fileName);
+		try {
+			file.transferTo(serverFile);
+			FileInfo fileInfo = smfileService.saveFile(file.getOriginalFilename(), fileUrl, serverFile);
+			return Result.success(fileInfo);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return Result.error("上传文件异常");
+		} 
+	}
 
 	/**
 	 * 多文件上传，form中的字段名如果没有设置，则默认为file, 文件上传后会直接存储
@@ -235,6 +285,7 @@ public class FileController {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
+	@ApiIgnore
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public Result handleFileUpload(String path, String formName, HttpServletRequest request) {
 		// 路径

@@ -65,7 +65,12 @@ public class OAuth2Realm extends AuthorizingRealm {
 		}
 		
 		//查询用户信息
-		UserExtend userExtend = shiroService.queryUser(tokenEntity.getUserId());
+		UserExtend userExtend;
+		try {
+			userExtend = shiroService.queryUser(tokenEntity.getUserId());
+		} catch (Exception e) {
+			throw new BaseException("获取用户信息失败");
+		}
 		if (userExtend == null || userExtend.getState() == SysConstant.STATE_INVALID) {
 			throw new BaseException("账号已被锁定,请联系管理员");
 		}
