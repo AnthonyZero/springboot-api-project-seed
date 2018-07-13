@@ -1,5 +1,5 @@
 ## 简介
-springboot-api-project-seed 是一个基于Spring Boot&MyBatis的种子项目，用于快速构建中小型RESTful API项目，减少重复编写，专注于业务代码，开箱即用。
+#### springboot-api-project-seed 是一个基于Spring Boot&MyBatis的种子项目，用于快速构建中小型RESTful API项目，减少重复编写，专注于业务代码，开箱即用。
 
 ## 特征&功能
 - 统一响应结果封装
@@ -26,6 +26,7 @@ springboot-api-project-seed 是一个基于Spring Boot&MyBatis的种子项目，
   > run Application.java
   ```
 访问swagger-ui：http://localhost:8860/seed/swagger-ui.html
+
 用帐号test密码123456 进行登录接口测试 获取访问令牌token 后续测试文件相关API
 
 ## 建议&提醒
