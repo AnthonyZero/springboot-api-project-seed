@@ -1,11 +1,12 @@
 package com.anthonyzero.seed.common.exception;
 
+import com.anthonyzero.seed.common.core.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.anthonyzero.seed.common.core.Result;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -13,6 +14,7 @@ import com.anthonyzero.seed.common.core.Result;
  * @author pingjin create 2018年7月11日
  *
  */
+@ControllerAdvice
 public class BaseExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -20,6 +22,7 @@ public class BaseExceptionHandler {
 	 * 自定义异常
 	 */
 	@SuppressWarnings("rawtypes")
+	@ResponseBody
 	@ExceptionHandler(BaseException.class)
 	public Result handleBaseException(BaseException e) {
 		logger.error(e.getMessage());
@@ -27,6 +30,7 @@ public class BaseExceptionHandler {
 	}
 
 	@SuppressWarnings("rawtypes")
+	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	public Result handleException(Exception e) {
 		logger.error(e.getMessage(), e);
