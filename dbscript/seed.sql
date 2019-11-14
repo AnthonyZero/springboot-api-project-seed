@@ -9,7 +9,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sm_file`;
 CREATE TABLE `sm_file` (
-  `file_id` bigint(20) NOT NULL COMMENT '文件ID',
+  `file_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件ID',
   `file_name` varchar(250) NOT NULL COMMENT '文件名称',
   `file_sign` varchar(64) DEFAULT NULL COMMENT '文件签名',
   `file_type` int(11) NOT NULL COMMENT '文件类型:1 图片2 文档3 其他',
@@ -17,7 +17,7 @@ CREATE TABLE `sm_file` (
   `file_url` varchar(250) NOT NULL COMMENT '文件路径',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='文件管理表';
 
 -- ----------------------------
 -- Records of sm_file
@@ -28,7 +28,7 @@ CREATE TABLE `sm_file` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sm_user`;
 CREATE TABLE `sm_user` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `user_name` varchar(128) NOT NULL COMMENT '用户名称',
   `user_code` varchar(128) NOT NULL COMMENT '登录账号',
   `password` varchar(128) NOT NULL COMMENT '用户密码',
@@ -43,12 +43,12 @@ CREATE TABLE `sm_user` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `idx_sm_user_login_code` (`user_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sm_user
 -- ----------------------------
-INSERT INTO `sm_user` VALUES ('455991757574144', 'username', 'test', 'feaeb4d7ccf8ff83f6d1371554d70eaabb1d9ca9c7427f18e1182173672fbc20', '0', 'UREb44orHf1zXrKRlv7f', null, null, null, null, null, '1', '2018-07-12 11:55:13');
+INSERT INTO `sm_user` VALUES ('1', 'username', 'test', 'feaeb4d7ccf8ff83f6d1371554d70eaabb1d9ca9c7427f18e1182173672fbc20', '0', 'UREb44orHf1zXrKRlv7f', null, null, null, null, null, '1', '2018-07-12 11:55:13');
 
 -- ----------------------------
 -- Table structure for sm_user_token
@@ -65,4 +65,4 @@ CREATE TABLE `sm_user_token` (
 -- ----------------------------
 -- Records of sm_user_token
 -- ----------------------------
-INSERT INTO `sm_user_token` VALUES ('455991757574144', '28d56b5b4da464477d53db69f0e0e172', '2018-07-13 04:54:00', '2018-07-12 16:54:00');
+INSERT INTO `sm_user_token` VALUES ('1', '28d56b5b4da464477d53db69f0e0e172', '2018-07-13 04:54:00', '2018-07-12 16:54:00');
