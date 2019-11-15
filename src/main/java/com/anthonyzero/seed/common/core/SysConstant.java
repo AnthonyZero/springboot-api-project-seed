@@ -1,4 +1,4 @@
-package com.anthonyzero.seed.common.utils;
+package com.anthonyzero.seed.common.core;
 
 /**
  * 系统参数相关
