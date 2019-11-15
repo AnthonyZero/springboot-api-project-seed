@@ -13,7 +13,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -76,7 +75,7 @@ public class ShiroConfig {
 		filterMap.put("/dlfile/**", "anon");
 		filterMap.put("/", "anon");
 		
-		filterMap.put("/**", "oauth2");
+		filterMap.put("/**", "oauth2"); //都要进行验证有效token
 		shiroFilter.setFilterChainDefinitionMap(filterMap);
 
 		return shiroFilter;
@@ -88,12 +87,12 @@ public class ShiroConfig {
 		return new LifecycleBeanPostProcessor();
 	}
 
-	@Bean
+	/*@Bean 去掉 解决二次代理引起的问题 加了@Trasactional之后切换不了数据源
 	public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
 		DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
 		proxyCreator.setProxyTargetClass(true);
 		return proxyCreator;
-	}
+	}*/
 
 	@Bean
 	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
