@@ -1,18 +1,16 @@
 package com.anthonyzero.seed.modules.user.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.anthonyzero.seed.common.core.Result;
 import com.anthonyzero.seed.common.utils.StringUtil;
-import com.anthonyzero.seed.modules.user.service.UserService;
-
+import com.anthonyzero.seed.modules.user.service.SmUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
@@ -25,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 public class LoginController {
 	
 	@Autowired
-	private UserService userService;
+	private SmUserService smUserService;
 	
 	/**
 	 * 登录
@@ -47,6 +45,6 @@ public class LoginController {
 		if (!StringUtil.hasText(password)) {
 			return Result.error("请输入密码");
 		}
-		return userService.login(usercode, password);
+		return smUserService.login(usercode, password);
 	}
 }

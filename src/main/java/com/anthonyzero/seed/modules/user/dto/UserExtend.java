@@ -1,6 +1,6 @@
 package com.anthonyzero.seed.modules.user.dto;
 
-import com.anthonyzero.seed.modules.user.domain.SmUser;
+import com.anthonyzero.seed.modules.user.entity.SmUser;
 
 /**
  * 用户信息扩展

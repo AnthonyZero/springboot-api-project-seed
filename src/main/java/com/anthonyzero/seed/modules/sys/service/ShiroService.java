@@ -2,7 +2,7 @@ package com.anthonyzero.seed.modules.sys.service;
 
 import java.util.Set;
 
-import com.anthonyzero.seed.modules.user.domain.SmUserToken;
+import com.anthonyzero.seed.modules.user.entity.SmUserToken;
 import com.anthonyzero.seed.modules.user.dto.UserExtend;
 /**
  * 

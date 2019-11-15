@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.anthonyzero.seed.modules.sys.controller;
 
@@ -57,7 +57,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/file")
 public class FileController {
 	protected final static Logger logger = LoggerFactory.getLogger(FileController.class);
-	
+
 	public static String FILE_PATH; // 文件存储路径
 	@Value("${file.filepath}")
 	private String filePath;
@@ -72,7 +72,7 @@ public class FileController {
 
 	/**
 	 * 获取文件路径
-	 * 
+	 *
 	 * @param fileId
 	 * @return
 	 */
@@ -90,7 +90,7 @@ public class FileController {
 
 	/**
 	 * 获取MINE文件
-	 * 
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -115,7 +115,7 @@ public class FileController {
 
 	/**
 	 * 根据文件ID获取图片
-	 * 
+	 *
 	 * @param fileName
 	 * @param request
 	 * @param response
@@ -126,10 +126,10 @@ public class FileController {
 	public Result downloadImage(Long fileId, HttpServletRequest request, HttpServletResponse response) {
 		return downloadFile(fileId, null, null, request, response);
 	}
-	
+
 	/**
 	 * 根据文件ID下载文件
-	 * 
+	 *
 	 * @param fileId
 	 * @param request
 	 * @param response
@@ -143,7 +143,7 @@ public class FileController {
 
 	/**
 	 * 文件下载
-	 * 
+	 *
 	 * @param fileName
 	 * @param request
 	 * @param response
@@ -234,7 +234,7 @@ public class FileController {
 
 		return "";
 	}
-	
+
 	/**
 	 * 文件上传
 	 * @param category
@@ -246,10 +246,10 @@ public class FileController {
 	public Result<FileInfo> uploadFile(MultipartFile file) {
 		if (file == null) {
 			return Result.error("文件为空,上传失败");
-		} 
+		}
 		logger.debug("文件名:" + file.getOriginalFilename() + " 文件内容类型:" + file.getContentType() + " 文件大小:" + file.getSize() + "Bytes");
 		String fileName = file.getOriginalFilename();
-		
+
 		int pos = fileName.lastIndexOf(".");
 		if (pos < 0) {
 			return Result.error("请检查文件格式");
@@ -275,12 +275,12 @@ public class FileController {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return Result.error("上传文件异常");
-		} 
+		}
 	}
 
 	/**
 	 * 多文件上传，form中的字段名如果没有设置，则默认为file, 文件上传后会直接存储
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */
