@@ -66,7 +66,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
 			return false;
 		}
 
-		return executeLogin(arg0, arg1);
+		return executeLogin(arg0, arg1); //执行OAuth2Realm的 doGetAuthenticationInfo
 	}
 	
 	@Override

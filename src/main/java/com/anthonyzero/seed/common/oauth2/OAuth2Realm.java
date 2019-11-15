@@ -1,5 +1,6 @@
 package com.anthonyzero.seed.common.oauth2;
 
+import java.time.ZoneOffset;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.anthonyzero.seed.common.exception.BaseException;
-import com.anthonyzero.seed.common.utils.SysConstant;
+import com.anthonyzero.seed.common.core.SysConstant;
 import com.anthonyzero.seed.modules.sys.service.ShiroService;
-import com.anthonyzero.seed.modules.user.domain.SmUserToken;
+import com.anthonyzero.seed.modules.user.entity.SmUserToken;
 import com.anthonyzero.seed.modules.user.dto.UserExtend;
 
 /**
@@ -60,7 +61,8 @@ public class OAuth2Realm extends AuthorizingRealm {
 		// 根据accessToken，查询用户信息
 		SmUserToken tokenEntity = shiroService.queryByToken(accessToken);
 		// token失效
-		if (tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()) {
+		if (tokenEntity == null || tokenEntity.getExpireTime().toInstant(ZoneOffset.of("+8")).toEpochMilli()
+				< System.currentTimeMillis()) {
 			throw new BaseException("token失效，请重新登录");
 		}
 		
