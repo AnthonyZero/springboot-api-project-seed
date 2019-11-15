@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 public class DynamicDataSource extends AbstractRoutingDataSource {
     
     public DynamicDataSource(DataSource defaultTargetDataSource, Map<String, DataSource> targetDataSources) {
-        super.setDefaultTargetDataSource(defaultTargetDataSource);
+        super.setDefaultTargetDataSource(defaultTargetDataSource); //设置默认数据源
         super.setTargetDataSources(new HashMap<>(targetDataSources));
         super.afterPropertiesSet();
     }
