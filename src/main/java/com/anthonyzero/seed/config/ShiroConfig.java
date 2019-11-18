@@ -74,7 +74,7 @@ public class ShiroConfig {
 		filterMap.put("/image/**", "anon"); //图片预览
 		filterMap.put("/dlfile/**", "anon");
 		filterMap.put("/", "anon");
-		
+
 		filterMap.put("/**", "oauth2"); //都要进行验证有效token
 		shiroFilter.setFilterChainDefinitionMap(filterMap);
 
@@ -87,7 +87,7 @@ public class ShiroConfig {
 		return new LifecycleBeanPostProcessor();
 	}
 
-	/*@Bean 去掉 解决二次代理引起的问题 加了@Trasactional之后切换不了数据源
+	/*@Bean //去掉 解决二次代理引起的问题 加了@Trasactional之后切换不了数据源
 	public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
 		DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
 		proxyCreator.setProxyTargetClass(true);
