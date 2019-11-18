@@ -1,7 +1,7 @@
 package com.anthonyzero.seed.common.core;
 
-import org.springframework.http.HttpStatus;
 
+import org.apache.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -47,19 +47,19 @@ public class Result<T>{
 	}
 
 	public static <T extends Object> Result<T> success() {
-		return new Result<T>().setCode(HttpStatus.OK.value()).setMessage(DEFAULT_SUCCESS_MESSAGE);
+		return new Result<T>().setCode(HttpStatus.SC_OK).setMessage(DEFAULT_SUCCESS_MESSAGE);
 	}
 	
 	public static <T extends Object> Result<T> success(String message) {
-		return new Result<T>().setCode(HttpStatus.OK.value()).setMessage(message);
+		return new Result<T>().setCode(HttpStatus.SC_OK).setMessage(message);
 	}
 
 	public static <T extends Object> Result<T> success(T data) {
-		return new Result<T>().setCode(HttpStatus.OK.value()).setMessage(DEFAULT_SUCCESS_MESSAGE).setData(data);
+		return new Result<T>().setCode(HttpStatus.SC_OK).setMessage(DEFAULT_SUCCESS_MESSAGE).setData(data);
 	}
 
 	public static <T extends Object> Result<T> error(String message) {
-		return new Result<T>().setCode(HttpStatus.BAD_REQUEST.value()).setMessage(message);
+		return new Result<T>().setCode(HttpStatus.SC_BAD_REQUEST).setMessage(message);
 	}
 
 	public static <T extends Object> Result<T> error(int code, String message) {
@@ -67,6 +67,6 @@ public class Result<T>{
 	}
 
 	public static <T extends Object> Result<T> error() {
-		return new Result<T>().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value()).setMessage("未知异常，请联系管理员");
+		return new Result<T>().setCode(HttpStatus.SC_INTERNAL_SERVER_ERROR).setMessage("未知异常，请联系管理员");
 	}
 }
