@@ -1,9 +1,11 @@
 package com.anthonyzero.seed.common.exception;
 
 import com.anthonyzero.seed.common.core.Result;
+import org.apache.http.HttpStatus;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,11 +31,36 @@ public class BaseExceptionHandler {
 		return Result.error(e.getMessage());
 	}
 
+	/**
+	 * token错误或已失效
+	 * @param e
+	 * @return
+	 */
+	@ResponseBody
+	@ExceptionHandler(value = AuthenticationException.class)
+	public Result handleAuthenticationException(AuthenticationException e) {
+		logger.error(e.getMessage(), e);
+		return Result.error(HttpStatus.SC_UNAUTHORIZED, e.getMessage());
+	}
+
+	/**
+	 * 无操作权限
+	 * @param e
+	 * @return
+	 */
+	@ResponseBody
+	@ExceptionHandler(value = AuthorizationException.class)
+	public Result handleAuthorizationException(AuthorizationException e) {
+		logger.error(e.getMessage(), e);
+		return Result.error(HttpStatus.SC_FORBIDDEN, "该用户无操作权限");
+	}
+
+
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	public Result handleException(Exception e) {
 		logger.error(e.getMessage(), e);
-		return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "未知异常，请联系管理员");
+		return Result.error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
 	}
 }

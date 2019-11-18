@@ -36,7 +36,7 @@ public class OAuth2Realm extends AuthorizingRealm {
 	}
 	
 	/**
-	 * 授权(验证权限时调用) 访问控制。比如某个用户是否具有某个操作的使用权限
+	 * 授权(验证权限时调用) 访问控制。比如某个用户是否具有某个操作的使用权限 存在@RequiresPermissions 调用
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -63,7 +63,7 @@ public class OAuth2Realm extends AuthorizingRealm {
 		// token失效
 		if (tokenEntity == null || tokenEntity.getExpireTime().toInstant(ZoneOffset.of("+8")).toEpochMilli()
 				< System.currentTimeMillis()) {
-			throw new BaseException("token失效，请重新登录");
+			throw new AuthenticationException("token失效，请重新登录");
 		}
 		
 		//查询用户信息
