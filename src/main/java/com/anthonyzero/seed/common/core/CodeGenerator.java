@@ -93,10 +93,10 @@ public class CodeGenerator {
         /*strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController"); *///自定义继承的Controller类全称
         // 写于父类中的公共字段
         strategy.setInclude(scanner("表名")); //需要包含的表名
-        strategy.setSuperEntityColumns("id");
+        //strategy.setSuperEntityColumns("id"); 主键为id的时候 生成的代码不会包含主键id 去掉
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setEntityTableFieldAnnotationEnable(true);
+        /*strategy.setTablePrefix(pc.getModuleName() + "_");*/  //决定生成的实体类是否带前缀 如果设置了值 会去掉前缀（值） 这里不去掉前缀
+        strategy.setEntityTableFieldAnnotationEnable(true);  //是否生成实体时，生成字段注解
         mpg.setStrategy(strategy);
         // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
