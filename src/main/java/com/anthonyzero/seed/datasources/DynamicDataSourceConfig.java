@@ -92,6 +92,7 @@ public class DynamicDataSourceConfig {
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setJdbcTypeForNull(JdbcType.NULL);
         configuration.setMapUnderscoreToCamelCase(true); //是否开启自动驼峰命名规则
+        configuration.addInterceptor(paginationInterceptor()); //解决注入Bean分页不失效 需手动设置
         sqlSessionFactory.setConfiguration(configuration);
 
         GlobalConfig globalConfig = new GlobalConfig(); //GlobalConfig
@@ -105,8 +106,7 @@ public class DynamicDataSourceConfig {
     /**
      * 攻击 SQL 阻断解析器
      */
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
+    private PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         List<ISqlParser> sqlParserList = new ArrayList<>();
         // 攻击 SQL 阻断解析器、加入解析链
