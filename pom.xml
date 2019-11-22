@@ -213,12 +213,4 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>maven-repo</id>
-			<name>maven repo</name>
-			<url>http://repo1.maven.org/maven2</url>
-		</repository>
-	</repositories>
-
 </project>
